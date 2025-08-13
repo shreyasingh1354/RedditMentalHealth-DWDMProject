@@ -228,28 +228,30 @@ def visualize_sampling_results(original_df, sampled_df):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Sample mental health Reddit data using semantic and temporal clustering.')
-    parser.add_argument('input_file', help='Input CSV file containing the Reddit data')
-    parser.add_argument('output_file', help='Output CSV file to save the sampled data')
-    
+    parser = argparse.ArgumentParser(
+        description="Sample mental health Reddit data using semantic and temporal clustering."
+    )
+    parser.add_argument("input_file", help="Path to the input CSV containing Reddit data")
+    parser.add_argument("output_file", help="Path to save the sampled CSV data")
+
     args = parser.parse_args()
-    
-    if not os.path.isfile(args.input_file):
-        print(f"Error: Input file '{args.input_file}' does not exist")
+
+    if not os.path.exists(args.input_file):
+        print(f"[Error] The file '{args.input_file}' was not found.")
         return 1
-    
-    print(f"Loading data from {args.input_file}...")
+
+    print(f"Reading data from '{args.input_file}'...")
     df = pd.read_csv(args.input_file)
-    
-    # Run the sampling
+
+    # Perform the sampling process
     sampled_df = sample_mental_health_data(
         df=df,
         output_file=args.output_file
     )
-    
-    print(f"Process complete. Sampled {len(sampled_df)} posts from {len(df)} original posts.")
+
+    print(f" Sampling complete: {len(sampled_df)} posts selected from {len(df)} original entries.")
     return 0
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    raise SystemExit(main())
